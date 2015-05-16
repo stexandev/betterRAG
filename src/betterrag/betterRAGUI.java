@@ -16,12 +16,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import com.google.gson.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jsoup.Jsoup;
-import org.jsoup.examples.HtmlToPlainText;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 
 
@@ -244,25 +251,51 @@ public class betterRAGUI extends javax.swing.JFrame {
         
         //targetURL = baseURL + "&datum1=1250&datum2=1550&optionen%5B%5D=Ort%20der%20Immatrikulation&optionen%5B%5D=Promotionsgrad&argumente%5B%5D=Rostock&argumente%5B%5D=med";
         
+        
+        
         String argumente = inputAuswerten();
         String ragErgebnis =  ragAbfragen(argumente);
         
         Gson gson = new Gson();
-        JsonObj obj = gson.fromJson(ragErgebnis, JsonObj.class);
+        JsonObj jsonErgebnis = gson.fromJson(ragErgebnis, JsonObj.class);
         
-        List<AaData> objData = obj.getAaData();
-        
-        
+        List<AaData> aaDataListe = jsonErgebnis.getAaData();
+        for (AaData aaDataElem : aaDataListe){
+            String ragHtml = idAbfragen(aaDataElem.getMain_id());
+            Document doc = Jsoup.parse(ragHtml);
+            String normName = doc.getElementsByTag("h1").first().text();
+            String varName = doc.getElementsByTag("h3").first().text();
+            Elements tabellen = doc.getElementsByClass("tableBiogram");
+            String zitat = doc.select("p").last().text();
+            
+            
+            
+                       
+            File file = new File("/home/stefan/RAG/"+aaDataElem.getMain_id().toString()+".txt");
+            if (! file.exists()){
+                try {
+                    PrintWriter out = new PrintWriter(file);
+                    out.println(zitat);
+                    out.close();
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(betterRAGUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(betterRAGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
 
+
+                
+            }
+        }
         
 
         outputText.setText(ragErgebnis + "\n");
-        System.out.print(obj.getITotalDisplayRecords());
+        System.out.print(jsonErgebnis.getITotalDisplayRecords());
         
-        for (int i=0;i<obj.getITotalDisplayRecords();i++){
+        /*
+        for (int i=0;i<jsonErgebnis.getITotalDisplayRecords();i++){
             // für alle ergebnisse main_id auslesen, abfragen und in objekt speichern
-             
-
             HtmlToPlainText formatter = new HtmlToPlainText();
             String plainText = formatter.getPlainText(Jsoup.parse(idAbfragen(objData.get(i).getMain_id())));
             outputText.append(plainText);
@@ -270,9 +303,28 @@ public class betterRAGUI extends javax.swing.JFrame {
             //System.out.print(objData.get(i).getPers_norm_name() + ", " + objData.get(i).getPers_first_name1());
             System.out.print("\n");
         }
+        */
         
         
-        
+        Document doc = Jsoup.parse(idAbfragen(10907534));
+        System.out.print(doc);
+        /*
+        Elements tables = doc.select("table");
+        //for (Element table : tables) {
+            Element table = tables.first();
+            Elements trs = table.select("tr");
+            String[][] trtd = new String[trs.size()][];
+            
+            for (int i = 0; i < trs.size(); i++) {
+                Elements tds = trs.get(i).select("td");
+                trtd[i] = new String[tds.size()];
+                for (int j = 0; j < tds.size(); j++) {
+                    trtd[i][j] = tds.get(j).text(); 
+                }
+        //}
+        System.out.print(trtd[0][0]);
+        }
+        */
     
         
     }//GEN-LAST:event_jButton1ActionPerformed
