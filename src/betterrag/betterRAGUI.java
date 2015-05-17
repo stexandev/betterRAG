@@ -22,7 +22,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jsoup.Jsoup;
@@ -57,7 +60,7 @@ public class betterRAGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        inputGrad = new javax.swing.JComboBox();
+        inputGrad1 = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         inputVorname = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -77,6 +80,8 @@ public class betterRAGUI extends javax.swing.JFrame {
         inputImmOrt = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         outputText = new javax.swing.JTextArea();
+        inputGrad2 = new javax.swing.JComboBox();
+        inputGradRegExp = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,7 +92,12 @@ public class betterRAGUI extends javax.swing.JFrame {
             }
         });
 
-        inputGrad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "keine", "Artist", "Jurist", "Theologe", "Mediziner" }));
+        inputGrad1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "egal", "Artist", "Jurist", "Theologe", "Mediziner" }));
+        inputGrad1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputGrad1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Graduierung");
 
@@ -151,6 +161,10 @@ public class betterRAGUI extends javax.swing.JFrame {
         outputText.setRows(5);
         jScrollPane1.setViewportView(outputText);
 
+        inputGrad2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "egal", "Artist", "Jurist", "Theologe", "Mediziner" }));
+
+        inputGradRegExp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ODER", "UND", "UND NICHT" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -191,9 +205,11 @@ public class betterRAGUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(inputGrad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(inputGrad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)))))
+                                .addComponent(jButton1))
+                            .addComponent(inputGrad2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputGradRegExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -210,10 +226,14 @@ public class betterRAGUI extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
-                            .addComponent(inputGrad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputGrad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(inputNachname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(inputHerkunft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(1, 1, 1)
+                        .addComponent(inputGradRegExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(inputGrad2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -237,7 +257,7 @@ public class betterRAGUI extends javax.swing.JFrame {
                             .addComponent(inputDekan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(inputPromOrt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -251,47 +271,91 @@ public class betterRAGUI extends javax.swing.JFrame {
         
         //targetURL = baseURL + "&datum1=1250&datum2=1550&optionen%5B%5D=Ort%20der%20Immatrikulation&optionen%5B%5D=Promotionsgrad&argumente%5B%5D=Rostock&argumente%5B%5D=med";
         
-        
-        
-        String argumente = inputAuswerten();
-        String ragErgebnis =  ragAbfragen(argumente);
-        
+        String ragErgebnis = "";
         Gson gson = new Gson();
-        JsonObj jsonErgebnis = gson.fromJson(ragErgebnis, JsonObj.class);
+        List<AaData> aaDataListe = new ArrayList<>();
         
-        List<AaData> aaDataListe = jsonErgebnis.getAaData();
-        for (AaData aaDataElem : aaDataListe){
-            String ragHtml = idAbfragen(aaDataElem.getMain_id());
-            Document doc = Jsoup.parse(ragHtml);
-            String normName = doc.getElementsByTag("h1").first().text();
-            String varName = doc.getElementsByTag("h3").first().text();
-            Elements tabellen = doc.getElementsByClass("tableBiogram");
-            String zitat = doc.select("p").last().text();
-            
-            
-            
-                       
-            File file = new File("/home/stefan/RAG/"+aaDataElem.getMain_id().toString()+".txt");
-            if (! file.exists()){
-                try {
-                    PrintWriter out = new PrintWriter(file);
-                    out.println(zitat);
-                    out.close();
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(betterRAGUI.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(betterRAGUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
+        Set mainIDs = new HashSet();
+        
+        
+        
+       
+        
+            List<String> argumente = inputAuswerten();
+            //schleife für abfrage von jedem element
+            for (String arg : argumente){
+                ragErgebnis =  ragAbfragen(arg);
+                JsonObj jsonErgebnis = gson.fromJson(ragErgebnis, JsonObj.class);
+                if (aaDataListe.isEmpty()){
+                    aaDataListe = jsonErgebnis.getAaData();
+                    for (AaData elem : aaDataListe){
+                        mainIDs.add(elem.getMain_id());
+                    }
+                }else{
+                    // Hier die Mengenoperatoren gemäß Nutzereingabe durchführen AND / OR / AND NOT
+                    List<AaData> aaDataListeOperand = new ArrayList<>();
+                    aaDataListeOperand = jsonErgebnis.getAaData();
+                    Set mainIDsOperand = new HashSet();
+                    // HIER NULLPOINTER EXCEPTION BEI leere Liste (aaDataListeOperand)
+                    for (AaData elem : aaDataListeOperand){
+                        mainIDsOperand.add(elem.getMain_id());
+                    }
 
-
-                
+                      
+                    
+                    
+                    switch (inputGradRegExp.getSelectedItem().toString()) {
+                        case "ODER": 
+                            mainIDs.addAll(mainIDsOperand);
+                            break;
+                        case "UND": 
+                            mainIDs.retainAll(mainIDsOperand);
+                            break;
+                        case "UND NICHT":
+                            mainIDs.removeAll(mainIDsOperand);
+                            break;
+                    }
+                }                
             }
+        
+        
+        
+        if (!mainIDs.isEmpty()){
+            Number[] mainIDsArr = (Number[]) mainIDs.toArray(new Number[0]);
+            for (Number mainID : mainIDsArr){
+                String ragHtml = idAbfragen(mainID);
+                Document doc = Jsoup.parse(ragHtml);
+                String normName = doc.getElementsByTag("h1").first().text();
+                String varName = doc.getElementsByTag("h3").first().text();
+                Elements tabellen = doc.getElementsByClass("tableBiogram");
+
+
+
+                String zitat = doc.select("p").last().text();
+                    zitat = zitat.substring(24); //Anfang abschneiden
+
+
+
+
+                File file = new File("/home/stefan/RAG/"+mainID.toString()+".txt");
+                if (! file.exists()){
+                    try {
+                        try (PrintWriter out = new PrintWriter(file)) {
+                            out.println(zitat);
+                        }
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(betterRAGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    } 
+                }
+            }
+        }else{
+          System.out.print("Kein Ergebnis!");  
         }
         
+        
 
-        outputText.setText(ragErgebnis + "\n");
-        System.out.print(jsonErgebnis.getITotalDisplayRecords());
+        //outputText.setText(ragErgebnis + "\n");
+        //System.out.print(jsonErgebnis.getITotalDisplayRecords());
         
         /*
         for (int i=0;i<jsonErgebnis.getITotalDisplayRecords();i++){
@@ -306,8 +370,8 @@ public class betterRAGUI extends javax.swing.JFrame {
         */
         
         
-        Document doc = Jsoup.parse(idAbfragen(10907534));
-        System.out.print(doc);
+        //Document doc = Jsoup.parse(idAbfragen(10907534));
+        //System.out.print(doc);
         /*
         Elements tables = doc.select("table");
         //for (Element table : tables) {
@@ -340,6 +404,10 @@ public class betterRAGUI extends javax.swing.JFrame {
     private void inputNachnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputNachnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputNachnameActionPerformed
+
+    private void inputGrad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputGrad1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputGrad1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -378,7 +446,9 @@ public class betterRAGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox inputDekan;
-    private javax.swing.JComboBox inputGrad;
+    private javax.swing.JComboBox inputGrad1;
+    private javax.swing.JComboBox inputGrad2;
+    private javax.swing.JComboBox inputGradRegExp;
     private javax.swing.JTextField inputHerkunft;
     private javax.swing.JComboBox inputImmOrt;
     private javax.swing.JTextField inputNachname;
@@ -400,11 +470,13 @@ public class betterRAGUI extends javax.swing.JFrame {
     private javax.swing.JTextArea outputText;
     // End of variables declaration//GEN-END:variables
 
-    private String inputAuswerten() {
+    private List<String> inputAuswerten() {
         String opt="&optionen%5B%5D=";
         String arg="&argumente%5B%5D=";
         String optionen = "";
         String argumente = "";
+        List<String> ret = new ArrayList<>();
+        
         if (!inputNachname.getText().isEmpty()){
             optionen += opt + "Nachname";
             argumente += arg + inputNachname.getText();
@@ -437,31 +509,101 @@ public class betterRAGUI extends javax.swing.JFrame {
             optionen += opt + "Dekan%20an%20der%20Universit%C3%A4t%20in";
             argumente += arg + inputDekan.getSelectedItem().toString();
         }
-        if (!inputGrad.getSelectedItem().toString().equals("keine")){
-            optionen += opt + "Promotionsgrad";
-            //TODO: CASE
-            switch (inputGrad.getSelectedItem().toString()) {
-                case "Artist": 
-                    argumente += arg + "art";
-                    break;
-                case "Jurist": 
-                    argumente += arg + "jur";
-                    break;
-                case "Theologe": 
-                    argumente += arg + "theol";
-                    break;
-                case "Mediziner": 
-                    argumente += arg + "med";
-                    break;
+        int grade=0;
+        
+        if (!inputGrad1.getSelectedItem().toString().equals("egal")){
+            grade=1;
+            if (!inputGrad2.getSelectedItem().toString().equals("egal")){
+                grade=3;
+            }
+        }else{
+            if (!inputGrad2.getSelectedItem().toString().equals("egal")){
+                grade=2;
             }
         }
-            
-        
-            
-        
-        
-        return optionen+argumente;
+        switch (grade) {
+            case 1: optionen += opt + "Promotionsgrad";
+                    switch (inputGrad1.getSelectedItem().toString()) {
+                        case "Artist": 
+                            argumente += arg + "art";
+                            break;
+                        case "Jurist": 
+                            argumente += arg + "jur";
+                            break;
+                        case "Theologe": 
+                            argumente += arg + "theol";
+                            break;
+                        case "Mediziner": 
+                            argumente += arg + "med";
+                            break;
+                    }
+                    ret.add(optionen+argumente);
+                    break;
+                
+            case 2: optionen += opt + "Promotionsgrad";
+                    switch (inputGrad2.getSelectedItem().toString()) {
+                        case "Artist": 
+                            argumente += arg + "art";
+                            break;
+                        case "Jurist": 
+                            argumente += arg + "jur";
+                            break;
+                        case "Theologe": 
+                            argumente += arg + "theol";
+                            break;
+                        case "Mediziner": 
+                            argumente += arg + "med";
+                            break;
+                    }
+                    ret.add(optionen+argumente);
+                    break;
+                
+            case 3: optionen += opt + "Promotionsgrad";
+                    String argumente2 = argumente;
+                    
+                    switch (inputGrad1.getSelectedItem().toString()) {
+                        case "Artist": 
+                            argumente += arg + "art";
+                            break;
+                        case "Jurist": 
+                            argumente += arg + "jur";
+                            break;
+                        case "Theologe": 
+                            argumente += arg + "theol";
+                            break;
+                        case "Mediziner": 
+                            argumente += arg + "med";
+                            break;
+                    }
+                    
+                    switch (inputGrad2.getSelectedItem().toString()) {
+                        case "Artist": 
+                            argumente2 += arg + "art";
+                            break;
+                        case "Jurist": 
+                            argumente2 += arg + "jur";
+                            break;
+                        case "Theologe": 
+                            argumente2 += arg + "theol";
+                            break;
+                        case "Mediziner": 
+                            argumente2 += arg + "med";
+                            break;
+                    }
+                    ret.add(optionen+argumente);
+                    ret.add(optionen+argumente2);
+                    break;
+                
+            default:  ret.add(optionen+argumente);
+        }
+        return ret;
     }
+        
+            
+        
+        
+        
+    
 
     private String ragAbfragen(String argumente) {
 
