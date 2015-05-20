@@ -4,7 +4,7 @@ package com.RAG.json;
 public class AaData{
    	private String pND;
    	private Number date_year1;
-   	private Number main_id;
+   	private String main_id;
    	private String pers_amt;
    	private String pers_counter;
    	private String pers_first_name1;
@@ -28,10 +28,10 @@ public class AaData{
 	public void setDate_year1(Number date_year1){
 		this.date_year1 = date_year1;
 	}
- 	public Number getMain_id(){
+ 	public String getMain_id(){
 		return this.main_id;
 	}
-	public void setMain_id(Number main_id){
+	public void setMain_id(String main_id){
 		this.main_id = main_id;
 	}
  	public String getPers_amt(){

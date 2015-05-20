@@ -82,6 +82,7 @@ public class betterRAGUI extends javax.swing.JFrame {
         outputText = new javax.swing.JTextArea();
         inputGrad2 = new javax.swing.JComboBox();
         inputGradRegExp = new javax.swing.JComboBox();
+        enableGradRegExp = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -175,33 +176,39 @@ public class betterRAGUI extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(inputVorname, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4))
-                            .addComponent(jLabel2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(inputNachname, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(inputHerkunft, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(inputSozHer))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel3)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(inputVorname, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel4))
+                                    .addComponent(jLabel2)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(inputNachname, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(inputHerkunft, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel6)
+                                            .addComponent(inputSozHer))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel5)
+                                            .addComponent(inputPromOrt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(inputImmOrt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(28, 28, 28)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel5)
-                                    .addComponent(inputPromOrt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(inputImmOrt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(inputDekan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel9)
-                                .addComponent(inputRektor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                                    .addComponent(jLabel8)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(inputDekan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel9)
+                                        .addComponent(inputRektor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 174, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(enableGradRegExp)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
@@ -230,7 +237,9 @@ public class betterRAGUI extends javax.swing.JFrame {
                             .addComponent(inputNachname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(inputHerkunft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(1, 1, 1)
-                        .addComponent(inputGradRegExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(inputGradRegExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(enableGradRegExp))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(inputGrad2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
@@ -275,7 +284,7 @@ public class betterRAGUI extends javax.swing.JFrame {
         Gson gson = new Gson();
         List<AaData> aaDataListe = new ArrayList<>();
         
-        Set mainIDs = new HashSet();
+        Set<String> mainIDs = new HashSet<String>();
         
         
         
@@ -286,7 +295,7 @@ public class betterRAGUI extends javax.swing.JFrame {
             for (String arg : argumente){
                 ragErgebnis =  ragAbfragen(arg);
                 JsonObj jsonErgebnis = gson.fromJson(ragErgebnis, JsonObj.class);
-                if (aaDataListe.isEmpty()){
+                if (aaDataListe.isEmpty() & (jsonErgebnis.getITotalDisplayRecords()) > 0){ // schlechte Lösung, denn wenn 1. abfrage nichts zurückgibt, wird zweite hier reingespeichert
                     aaDataListe = jsonErgebnis.getAaData();
                     for (AaData elem : aaDataListe){
                         mainIDs.add(elem.getMain_id());
@@ -294,16 +303,15 @@ public class betterRAGUI extends javax.swing.JFrame {
                 }else{
                     // Hier die Mengenoperatoren gemäß Nutzereingabe durchführen AND / OR / AND NOT
                     List<AaData> aaDataListeOperand = new ArrayList<>();
-                    aaDataListeOperand = jsonErgebnis.getAaData();
-                    Set mainIDsOperand = new HashSet();
-                    // HIER NULLPOINTER EXCEPTION BEI leere Liste (aaDataListeOperand)
+                    if (jsonErgebnis.getAaData() != null){
+                        aaDataListeOperand = jsonErgebnis.getAaData();
+                    }
+                    Set<String> mainIDsOperand = new HashSet<String>();
                     for (AaData elem : aaDataListeOperand){
                         mainIDsOperand.add(elem.getMain_id());
                     }
-
-                      
                     
-                    
+                    //WARUM LÄSST DAS SET DUPLKIKATE ZU?=????
                     switch (inputGradRegExp.getSelectedItem().toString()) {
                         case "ODER": 
                             mainIDs.addAll(mainIDsOperand);
@@ -321,35 +329,36 @@ public class betterRAGUI extends javax.swing.JFrame {
         
         
         if (!mainIDs.isEmpty()){
-            Number[] mainIDsArr = (Number[]) mainIDs.toArray(new Number[0]);
-            for (Number mainID : mainIDsArr){
-                String ragHtml = idAbfragen(mainID);
-                Document doc = Jsoup.parse(ragHtml);
-                String normName = doc.getElementsByTag("h1").first().text();
-                String varName = doc.getElementsByTag("h3").first().text();
-                Elements tabellen = doc.getElementsByClass("tableBiogram");
-
-
-
-                String zitat = doc.select("p").last().text();
-                    zitat = zitat.substring(24); //Anfang abschneiden
-
-
-
-
-                File file = new File("/home/stefan/RAG/"+mainID.toString()+".txt");
-                if (! file.exists()){
-                    try {
-                        try (PrintWriter out = new PrintWriter(file)) {
-                            out.println(zitat);
-                        }
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(betterRAGUI.class.getName()).log(Level.SEVERE, null, ex);
-                    } 
-                }
-            }
+            String[] mainIDsArr = (String[]) mainIDs.toArray(new String[0]);
+            outputText.setText("Anzahl Ergebnisse:" + mainIDsArr.length + "\n");  
+//            for (String mainID : mainIDsArr){
+//                String ragHtml = idAbfragen(mainID);
+//                Document doc = Jsoup.parse(ragHtml);
+//                String normName = doc.getElementsByTag("h1").first().text();
+//                String varName = doc.getElementsByTag("h3").first().text();
+//                Elements tabellen = doc.getElementsByClass("tableBiogram");
+//
+//
+//
+//                String zitat = doc.select("p").last().text();
+//                    zitat = zitat.substring(24); //Anfang abschneiden
+//
+//
+//
+//
+//                File file = new File("/home/stefan/RAG/"+mainID.toString()+".txt");
+//                if (! file.exists()){
+//                    try {
+//                        try (PrintWriter out = new PrintWriter(file)) {
+//                            out.println(zitat);
+//                        }
+//                    } catch (FileNotFoundException ex) {
+//                        Logger.getLogger(betterRAGUI.class.getName()).log(Level.SEVERE, null, ex);
+//                    } 
+//                }
+//            }
         }else{
-          System.out.print("Kein Ergebnis!");  
+          outputText.setText("Kein Ergebnis!\n");  
         }
         
         
@@ -445,6 +454,7 @@ public class betterRAGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox enableGradRegExp;
     private javax.swing.JComboBox inputDekan;
     private javax.swing.JComboBox inputGrad1;
     private javax.swing.JComboBox inputGrad2;
@@ -509,93 +519,51 @@ public class betterRAGUI extends javax.swing.JFrame {
             optionen += opt + "Dekan%20an%20der%20Universit%C3%A4t%20in";
             argumente += arg + inputDekan.getSelectedItem().toString();
         }
-        int grade=0;
         
-        if (!inputGrad1.getSelectedItem().toString().equals("egal")){
-            grade=1;
-            if (!inputGrad2.getSelectedItem().toString().equals("egal")){
-                grade=3;
-            }
-        }else{
-            if (!inputGrad2.getSelectedItem().toString().equals("egal")){
-                grade=2;
-            }
+        String optionen2 = optionen;
+        String argumente2 = argumente;
+        
+        if ( ! inputGrad1.getSelectedItem().toString().equals("egal")){
+            optionen += opt + "Promotionsgrad";
+            switch (inputGrad1.getSelectedItem().toString()) {
+                case "Artist": 
+                    argumente += arg + "art";
+                    break;
+                case "Jurist": 
+                    argumente += arg + "jur";
+                    break;
+                case "Theologe": 
+                    argumente += arg + "theol";
+                    break;
+                case "Mediziner": 
+                    argumente += arg + "med";
+                    break;
+            }    
         }
-        switch (grade) {
-            case 1: optionen += opt + "Promotionsgrad";
-                    switch (inputGrad1.getSelectedItem().toString()) {
-                        case "Artist": 
-                            argumente += arg + "art";
-                            break;
-                        case "Jurist": 
-                            argumente += arg + "jur";
-                            break;
-                        case "Theologe": 
-                            argumente += arg + "theol";
-                            break;
-                        case "Mediziner": 
-                            argumente += arg + "med";
-                            break;
-                    }
-                    ret.add(optionen+argumente);
-                    break;
+        
+        ret.add(optionen+argumente);
                 
-            case 2: optionen += opt + "Promotionsgrad";
-                    switch (inputGrad2.getSelectedItem().toString()) {
-                        case "Artist": 
-                            argumente += arg + "art";
-                            break;
-                        case "Jurist": 
-                            argumente += arg + "jur";
-                            break;
-                        case "Theologe": 
-                            argumente += arg + "theol";
-                            break;
-                        case "Mediziner": 
-                            argumente += arg + "med";
-                            break;
-                    }
-                    ret.add(optionen+argumente);
-                    break;
-                
-            case 3: optionen += opt + "Promotionsgrad";
-                    String argumente2 = argumente;
-                    
-                    switch (inputGrad1.getSelectedItem().toString()) {
-                        case "Artist": 
-                            argumente += arg + "art";
-                            break;
-                        case "Jurist": 
-                            argumente += arg + "jur";
-                            break;
-                        case "Theologe": 
-                            argumente += arg + "theol";
-                            break;
-                        case "Mediziner": 
-                            argumente += arg + "med";
-                            break;
-                    }
-                    
-                    switch (inputGrad2.getSelectedItem().toString()) {
-                        case "Artist": 
-                            argumente2 += arg + "art";
-                            break;
-                        case "Jurist": 
-                            argumente2 += arg + "jur";
-                            break;
-                        case "Theologe": 
-                            argumente2 += arg + "theol";
-                            break;
-                        case "Mediziner": 
-                            argumente2 += arg + "med";
-                            break;
-                    }
-                    ret.add(optionen+argumente);
-                    ret.add(optionen+argumente2);
-                    break;
-                
-            default:  ret.add(optionen+argumente);
+        if (enableGradRegExp.isSelected()){
+            if ( ! inputGrad2.getSelectedItem().toString().equals("egal")){
+                optionen2 += opt + "Promotionsgrad";
+                switch (inputGrad2.getSelectedItem().toString()) {
+                            case "Artist": 
+                                argumente2 += arg + "art";
+                                break;
+                            case "Jurist": 
+                                argumente2 += arg + "jur";
+                                break;
+                            case "Theologe": 
+                                argumente2 += arg + "theol";
+                                break;
+                            case "Mediziner": 
+                                argumente2 += arg + "med";
+                                break;
+                }
+            }
+            ret.add(optionen2+argumente2);
         }
+        
         return ret;
     }
         
